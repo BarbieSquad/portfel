@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Проект | nnameoone</title>
+    <link rel="stylesheet" href="project-style.css">
+</head>
+<body>
+    <!-- Кнопка назад -->
+    <a href="index.html" class="back-btn">
+        <span class="back-arrow">←</span> На главную
+    </a>
+
+    <!-- Информация о проекте -->
+    <div class="project-info">
+        <h1 id="projectTitle">Чудаки</h1>
+        <p id="projectDesc">Персонажи</p>
+        <div class="project-tech" id="projectTech">
+            <span>Blender</span>
+        </div>
+    </div>
+
+    <!-- Canvas для 3D будет добавлен автоматически -->
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+ const modelPath = './models/123.glb';
+</body>
+</html>

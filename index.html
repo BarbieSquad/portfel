@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>nnameoone | 3D портфолио</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <span class="logo-text">nnameoone</span>
+            <span class="logo-dot">●</span>
+        </div>
+        <nav class="nav">
+            <a href="#projects" class="nav-link">Проекты</a>
+            <a href="#contacts" class="nav-link">Контакты</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="gradient-text">nnameoone</span>
+            </h1>
+            <p class="hero-subtitle">3D-дизайнер</p>
+            <div class="hero-links">
+                <a href="https://t.me/nneymnoo" target="_blank" class="hero-link telegram">
+                    <span>📱</span> Telegram
+                </a>
+                <a href="mailto:nnameoone@example.com" class="hero-link email">
+                    <span>✉️</span> nnameoone@example.com
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Проекты</h2>
+            <div class="projects-grid">
+                <a href="project1.html" class="project-card">
+                    <div class="project-image" data-project="1">
+                        <div class="project-overlay">
+                            <span class="project-emoji">✨</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Чудаки</h3>
+                    <p class="project-desc">Персонажи</p>
+                    <div class="project-tags">
+                        <span>Blender</span>
+                    </div>
+                </a>
+
+                <a href="project2.html" class="project-card">
+                    <div class="project-image" data-project="2">
+                        <div class="project-overlay">
+                            <span class="project-emoji">🎨</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Интерактивный шоурум</h3>
+                    <p class="project-desc">Виртуальная галерея с возможностью вращать объекты</p>
+                    <div class="project-tags">
+                        <span>WebGL</span>
+                        <span>GSAP</span>
+                    </div>
+                </a>
+
+                <a href="project3.html" class="project-card">
+                    <div class="project-image" data-project="3">
+                        <div class="project-overlay">
+                            <span class="project-emoji">🤖</span>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Нейро-арт инсталляция</h3>
+                    <p class="project-desc">Генеративная графика с использованием AI</p>
+                    <div class="project-tags">
+                        <span>WebGPU</span>
+                        <span>ML</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
