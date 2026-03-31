@@ -21,7 +21,7 @@ const projectConfig = {
         title: 'Интерактивный шоурум',
         desc: 'Виртуальная галерея с возможностью вращать объекты',
         tech: ['WebGL', 'GSAP'],
-        modelPath: './models/showroom.glb',
+        modelPath: './models/тян.glb',
         bgColor: 0x1a0a2a,
         cameraPos: { x: 4, y: 2, z: 4 }
     },
@@ -131,7 +131,7 @@ function createParticles() {
 function loadModel() {
     const loader = new GLTFLoader();
     
-    loader.load('./models/123.glb', 
+    loader.load(config.modelPath, 
         (gltf) => {
             model = gltf.scene;
             model.traverse((node) => {

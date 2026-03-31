@@ -9,10 +9,34 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Poppins', 'Segoe UI', 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
     color: white;
-    background: #0a0a1a;
+    background: #0a0a0a;
+    cursor: none; /* Скрываем обычный курсор */
+}
+
+/* ===== КАСТОМНЫЙ КУРСОР ===== */
+.cursor {
+    width: 8px;
+    height: 8px;
+    background: #a855f7;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+}
+
+.cursor-follower {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(168, 85, 247, 0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.2s ease;
 }
 
 /* ===== ШАПКА ===== */
@@ -21,60 +45,77 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.5rem 2rem;
+    padding: 1.8rem 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
-    background: rgba(10, 10, 26, 0.8);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.header.scrolled {
+    padding: 1rem 3rem;
+    background: rgba(10, 10, 10, 0.9);
 }
 
 .logo {
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
 }
 
 .logo-text {
-    background: linear-gradient(135deg, #fff, #a855f7);
+    background: linear-gradient(135deg, #fff, #a855f7, #ec4899);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
 }
 
 .logo-dot {
     color: #a855f7;
-    font-size: 1.2rem;
-    animation: pulse 2s infinite;
+    font-size: 1.5rem;
+    animation: pulseGlow 2s infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; text-shadow: 0 0 0px #a855f7; }
+    50% { opacity: 0.7; text-shadow: 0 0 10px #a855f7; }
 }
 
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* НАВИГАЦИЯ СПРАВА */
 .nav {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .nav-link {
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-size: 0.95rem;
+    font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
+    letter-spacing: 1px;
+    cursor: pointer;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -8px;
     left: 0;
     width: 0;
     height: 2px;
@@ -92,44 +133,66 @@ body {
 
 /* ===== ГЛАВНЫЙ ЭКРАН ===== */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
-    z-index: 5;
+    overflow: hidden;
+    padding-top: 80px;
 }
 
 .hero-content {
     padding: 0 2rem;
+    z-index: 10;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
 }
 
 .hero-title {
-    font-size: 5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    letter-spacing: -2px;
+    font-size: 6rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    letter-spacing: -3px;
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #fff, #a855f7, #ec4899);
+    background: linear-gradient(135deg, #fff, #a855f7, #ec4899, #06b6d4);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    background-size: 200% 200%;
-    animation: gradientShift 4s ease infinite;
-}
-
-@keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    background-size: 300% 300%;
+    animation: gradientShift 6s ease infinite;
 }
 
 .hero-subtitle {
     font-size: 1.3rem;
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
 }
 
 .hero-links {
@@ -142,120 +205,169 @@ body {
 .hero-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
+    gap: 10px;
+    padding: 14px 32px;
     border-radius: 50px;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 .hero-link.telegram {
-    background: rgba(0, 136, 204, 0.2);
-    border: 1px solid rgba(0, 136, 204, 0.5);
+    background: rgba(0, 136, 204, 0.15);
+    border: 1px solid rgba(0, 136, 204, 0.4);
     color: #fff;
 }
 
 .hero-link.telegram:hover {
     background: #0088cc;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 136, 204, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 136, 204, 0.3);
 }
 
 .hero-link.email {
-    background: rgba(168, 85, 247, 0.2);
-    border: 1px solid rgba(168, 85, 247, 0.5);
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.4);
     color: #fff;
 }
 
 .hero-link.email:hover {
     background: #a855f7;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+}
+
+/* Скролл индикатор */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.scroll-indicator span {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(180deg, #a855f7, transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+    0%, 100% { transform: scaleY(1); opacity: 1; }
+    50% { transform: scaleY(0.5); opacity: 0.3; }
 }
 
 /* ===== СЕКЦИЯ ПРОЕКТОВ ===== */
 .projects {
-    padding: 100px 2rem 120px;
-    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+    padding: 100px 2rem 150px;
     position: relative;
+    background: linear-gradient(180deg, #0a0a0a 0%, #05050a 100%);
     z-index: 5;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
 }
 
 .section-title {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 3rem;
+    font-size: 3rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #fff, #a855f7);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    margin-bottom: 1rem;
+}
+
+.section-title .gradient-text {
+    font-size: 3rem;
+}
+
+.section-line {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #a855f7, #ec4899);
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
 }
 
 .project-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 1.5rem;
+    border-radius: 24px;
+    padding: 1.8rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.4s ease;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     cursor: pointer;
     text-decoration: none;
     display: block;
     color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.project-card:hover::before {
+    left: 100%;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
     border-color: rgba(168, 85, 247, 0.5);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.project-number {
+    font-size: 0.8rem;
+    color: #a855f7;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 
 .project-image {
     width: 100%;
-    height: 200px;
-    background: linear-gradient(135deg, #1a1a3a, #2a1a4a);
-    border-radius: 12px;
-    margin-bottom: 1rem;
+    height: 220px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-}
-
-.project-image::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.3), transparent);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.project-card:hover .project-image::before {
-    opacity: 1;
-}
-
-.project-overlay {
-    position: relative;
-    z-index: 2;
 }
 
 .project-emoji {
@@ -270,30 +382,102 @@ body {
 }
 
 .project-title {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
 }
 
 .project-desc {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: 1rem;
     line-height: 1.5;
 }
 
 .project-tags {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.6rem;
     flex-wrap: wrap;
+    margin-bottom: 1rem;
 }
 
 .project-tags span {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     padding: 4px 12px;
-    background: rgba(168, 85, 247, 0.2);
+    background: rgba(168, 85, 247, 0.15);
     border-radius: 50px;
     color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.project-arrow {
+    font-size: 1.5rem;
+    color: #a855f7;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ===== ФУТЕР ===== */
+.footer {
+    background: linear-gradient(180deg, #05050a 0%, #000000 100%);
+    padding: 60px 3rem 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 10;
+}
+
+.footer-content {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff, #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.footer-left p {
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.footer-social a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.footer-social a:hover {
+    color: #a855f7;
+}
+
+.copyright {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    text-align: right;
 }
 
 /* ===== АДАПТИВ ===== */
@@ -303,15 +487,20 @@ body {
     }
     
     .logo-text {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
     
     .nav {
-        gap: 1rem;
+        gap: 1.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.85rem;
     }
     
     .hero-title {
         font-size: 2.5rem;
+        letter-spacing: -1px;
     }
     
     .hero-subtitle {
@@ -332,11 +521,143 @@ body {
         font-size: 2rem;
     }
     
+    .section-title .gradient-text {
+        font-size: 2rem;
+    }
+    
     .projects {
         padding: 60px 1rem 80px;
     }
     
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .footer {
+        padding: 40px 1.5rem 20px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .copyright {
+        text-align: center;
+    }
+    
+    .cursor, .cursor-follower {
+        display: none;
+    }
+    
+    body {
+        cursor: auto;
     }
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Убираем стандартный курсор на всех элементах */
+a, button, .project-card, .nav-link, .hero-link {
+    cursor: none;
+}
+
+@media (max-width: 768px) {
+    a, button, .project-card, .nav-link, .hero-link {
+        cursor: pointer;
+    }
+}
+        /* Дополнительные стили для кастомного ползунка и правой навигации */
+        
+        /* --- КАСТОМНЫЙ СКРОЛЛБАР --- */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #c084fc, #f472b6);
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+        }
+
+        /* Для Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #a855f7 #0a0a0a;
+        }
+
+        /* --- КОРРЕКТИРОВКА НАВИГАЦИИ В ПРАВЫЙ ВЕРХНИЙ УГОЛ --- */
+        .header {
+            padding: 1.8rem 3rem;
+            justify-content: space-between;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2.5rem;
+            margin-left: auto; /* Прижимаем навигацию к правому краю */
+            margin-right: 0;
+        }
+
+        /* Адаптив для мобильных устройств */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 1.5rem;
+            }
+            
+            .nav {
+                gap: 1.5rem;
+                margin-left: auto;
+            }
+            
+            .nav-link {
+                font-size: 0.85rem;
+            }
+            
+            /* На мобильных устройствах ползунок остается, но можно оставить кастомным */
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+        }
+
+        /* Небольшое улучшение для плавности скролла */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Убираем стандартный скроллбар в некоторых браузерах для чистоты, но оставляем кастомный */
+        body {
+            overflow-y: overlay; /* Для поддержки overlay в WebKit, но для надежности используем auto */
+        }
+        
+        /* Для поддержки в WebKit, чтобы скроллбар был поверх контента */
+        @supports (overflow-y: overlay) {
+            body {
+                overflow-y: overlay;
+            }
+        }
+
+        /* Дополнительно стилизуем полосу прокрутки для большей эстетики */
+        ::-webkit-scrollbar-corner {
+            background: #0a0a0a;
+        }

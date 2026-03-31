@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>nnameoone | 3D проект</title>
+    <link rel="stylesheet" href="project-style.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        /* Эпичный индикатор загрузки */
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            background: rgba(0,0,0,0.8);
+            padding: 20px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loader.hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader">
+        ЗАГРУЗКА...
+    </div>
+    
+    <a href="index.html" class="back-btn">
+        <span class="back-arrow">←</span> На главную
+    </a>
+
+    <div class="project-info">
+        <h1 id="projectTitle">Загрузка...</h1>
+        <p id="projectDesc"></p>
+        <div class="project-tech" id="projectTech"></div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module">
+        // Скрываем лоадер через 2 секунды
+        setTimeout(() => {
+            document.getElementById('loader')?.classList.add('hide');
+        }, 2000);
+    </script>
+    <script type="module" src="project.js"></script>
+</body>
+</html>
