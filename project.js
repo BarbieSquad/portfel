@@ -8,7 +8,7 @@ const projectId = window.location.pathname.match(/project(\d)\.html/)?.[1] || '1
 
 const projectConfig = {
     1: {
-        title: 'Чудаки',
+        title: 'Чудики',
         desc: 'Персонажи',
         tech: ['Blender'],
         modelPath: './models/123.glb', // замените на вашу модель
