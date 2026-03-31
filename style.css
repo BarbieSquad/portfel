@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -9,14 +11,13 @@ html {
 }
 
 body {
-    font-family: 'Poppins', 'Segoe UI', 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', 'Poppins', 'Segoe UI', system-ui, sans-serif;
     overflow-x: hidden;
     color: white;
     background: #0a0a0a;
-    cursor: none; /* Скрываем обычный курсор */
+    cursor: none;
 }
 
-/* ===== КАСТОМНЫЙ КУРСОР ===== */
 .cursor {
     width: 8px;
     height: 8px;
@@ -25,7 +26,7 @@ body {
     position: fixed;
     pointer-events: none;
     z-index: 9999;
-    transition: transform 0.1s;
+    transition: transform 0.1s ease;
 }
 
 .cursor-follower {
@@ -36,10 +37,9 @@ body {
     position: fixed;
     pointer-events: none;
     z-index: 9998;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* ===== ШАПКА ===== */
 .header {
     position: fixed;
     top: 0;
@@ -50,15 +50,17 @@ body {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    background: rgba(10, 10, 10, 0.5);
+    background: rgba(10, 10, 10, 0.3);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .header.scrolled {
     padding: 1rem 3rem;
-    background: rgba(10, 10, 10, 0.9);
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(168, 85, 247, 0.2);
 }
 
 .logo {
@@ -71,12 +73,12 @@ body {
 }
 
 .logo-text {
-    background: linear-gradient(135deg, #fff, #a855f7, #ec4899);
+    background: linear-gradient(135deg, #fff, #a855f7, #ec4899, #06b6d4);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    background-size: 200% 200%;
-    animation: gradientShift 4s ease infinite;
+    background-size: 300% 200%;
+    animation: gradientShift 5s ease infinite;
 }
 
 .logo-dot {
@@ -86,8 +88,8 @@ body {
 }
 
 @keyframes pulseGlow {
-    0%, 100% { opacity: 1; text-shadow: 0 0 0px #a855f7; }
-    50% { opacity: 0.7; text-shadow: 0 0 10px #a855f7; }
+    0%, 100% { opacity: 1; text-shadow: 0 0 0px #a855f7; transform: scale(1); }
+    50% { opacity: 0.6; text-shadow: 0 0 15px #a855f7; transform: scale(1.1); }
 }
 
 @keyframes gradientShift {
@@ -95,10 +97,10 @@ body {
     50% { background-position: 100% 50%; }
 }
 
-/* НАВИГАЦИЯ СПРАВА */
 .nav {
     display: flex;
     gap: 2.5rem;
+    margin-left: auto;
 }
 
 .nav-link {
@@ -121,6 +123,7 @@ body {
     height: 2px;
     background: linear-gradient(90deg, #a855f7, #ec4899);
     transition: width 0.3s ease;
+    border-radius: 2px;
 }
 
 .nav-link:hover {
@@ -131,7 +134,6 @@ body {
     width: 100%;
 }
 
-/* ===== ГЛАВНЫЙ ЭКРАН ===== */
 .hero {
     min-height: 100vh;
     display: flex;
@@ -141,6 +143,17 @@ body {
     position: relative;
     overflow: hidden;
     padding-top: 80px;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .hero-content {
@@ -162,21 +175,30 @@ body {
 
 .hero-badge {
     display: inline-block;
-    padding: 0.5rem 1.2rem;
-    background: rgba(168, 85, 247, 0.15);
+    padding: 0.6rem 1.4rem;
+    background: rgba(168, 85, 247, 0.1);
     border: 1px solid rgba(168, 85, 247, 0.3);
     border-radius: 50px;
     font-size: 0.8rem;
     letter-spacing: 2px;
     margin-bottom: 2rem;
     backdrop-filter: blur(10px);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.hero-badge:hover {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.2);
+    transform: scale(1.05);
 }
 
 .hero-title {
-    font-size: 6rem;
+    font-size: 7rem;
     font-weight: 900;
     margin-bottom: 1.5rem;
-    letter-spacing: -3px;
+    letter-spacing: -4px;
+    line-height: 1.1;
 }
 
 .gradient-text {
@@ -189,10 +211,11 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 2.5rem;
     line-height: 1.6;
+    font-weight: 400;
 }
 
 .hero-links {
@@ -210,10 +233,30 @@ body {
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     backdrop-filter: blur(10px);
     font-size: 1rem;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.hero-link:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .hero-link.telegram {
@@ -226,6 +269,7 @@ body {
     background: #0088cc;
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(0, 136, 204, 0.3);
+    border-color: transparent;
 }
 
 .hero-link.email {
@@ -238,9 +282,9 @@ body {
     background: #a855f7;
     transform: translateY(-5px);
     box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+    border-color: transparent;
 }
 
-/* Скролл индикатор */
 .scroll-indicator {
     position: absolute;
     bottom: 30px;
@@ -251,12 +295,19 @@ body {
     align-items: center;
     gap: 10px;
     z-index: 10;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
 }
 
 .scroll-indicator span {
     font-size: 0.7rem;
     letter-spacing: 2px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
 }
 
 .scroll-line {
@@ -271,7 +322,6 @@ body {
     50% { transform: scaleY(0.5); opacity: 0.3; }
 }
 
-/* ===== СЕКЦИЯ ПРОЕКТОВ ===== */
 .projects {
     padding: 100px 2rem 150px;
     position: relative;
@@ -279,27 +329,45 @@ body {
     z-index: 5;
 }
 
+.projects::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(168, 85, 247, 0.05), transparent);
+    pointer-events: none;
+}
+
 .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
 }
 
 .section-title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    letter-spacing: -1px;
 }
 
 .section-title .gradient-text {
-    font-size: 3rem;
+    font-size: 3.5rem;
 }
 
 .section-line {
-    width: 60px;
+    width: 80px;
     height: 3px;
-    background: linear-gradient(90deg, #a855f7, #ec4899);
+    background: linear-gradient(90deg, #a855f7, #ec4899, #06b6d4);
     margin: 0 auto;
     border-radius: 3px;
+    animation: linePulse 2s ease-in-out infinite;
+}
+
+@keyframes linePulse {
+    0%, 100% { width: 80px; opacity: 0.7; }
+    50% { width: 120px; opacity: 1; }
 }
 
 .container {
@@ -314,11 +382,11 @@ body {
 }
 
 .project-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(10px);
-    border-radius: 24px;
+    border-radius: 28px;
     padding: 1.8rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     cursor: pointer;
     text-decoration: none;
@@ -326,6 +394,14 @@ body {
     color: white;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .project-card::before {
@@ -335,8 +411,8 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.08), transparent);
+    transition: left 0.6s ease;
 }
 
 .project-card:hover::before {
@@ -344,51 +420,91 @@ body {
 }
 
 .project-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(168, 85, 247, 0.5);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transform: translateY(-12px);
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(168, 85, 247, 0.1);
 }
 
 .project-number {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #a855f7;
     letter-spacing: 2px;
     margin-bottom: 1rem;
     font-weight: 600;
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(168, 85, 247, 0.1);
+    border-radius: 20px;
 }
 
 .project-image {
     width: 100%;
-    height: 220px;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
-    border-radius: 16px;
+    height: 240px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f0f1a);
+    border-radius: 20px;
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-image {
+    transform: scale(0.98);
+}
+
+.project-3d-preview {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .project-emoji {
-    font-size: 4rem;
-    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
+    font-size: 5rem;
+    filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.6));
     animation: float 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-emoji {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.8));
 }
 
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-12px); }
+}
+
+.project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.6), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
 }
 
 .project-title {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-bottom: 0.8rem;
     font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .project-desc {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 1rem;
     line-height: 1.5;
@@ -403,19 +519,29 @@ body {
 
 .project-tags span {
     font-size: 0.7rem;
-    padding: 4px 12px;
-    background: rgba(168, 85, 247, 0.15);
+    padding: 5px 14px;
+    background: rgba(168, 85, 247, 0.12);
     border-radius: 50px;
     color: #c084fc;
     border: 1px solid rgba(168, 85, 247, 0.2);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-tags span {
+    background: rgba(168, 85, 247, 0.25);
+    border-color: rgba(168, 85, 247, 0.4);
 }
 
 .project-arrow {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     color: #a855f7;
     opacity: 0;
-    transform: translateX(-10px);
-    transition: all 0.3s ease;
+    transform: translateX(-15px);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: absolute;
+    bottom: 1.8rem;
+    right: 1.8rem;
 }
 
 .project-card:hover .project-arrow {
@@ -423,7 +549,6 @@ body {
     transform: translateX(0);
 }
 
-/* ===== ФУТЕР ===== */
 .footer {
     background: linear-gradient(180deg, #05050a 0%, #000000 100%);
     padding: 60px 3rem 30px;
@@ -442,13 +567,18 @@ body {
     gap: 2rem;
 }
 
+.footer-left {
+    text-align: left;
+}
+
 .footer-logo {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 800;
     background: linear-gradient(135deg, #fff, #a855f7);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    letter-spacing: -1px;
 }
 
 .footer-left p {
@@ -468,26 +598,84 @@ body {
     text-decoration: none;
     transition: all 0.3s ease;
     font-size: 0.9rem;
+    position: relative;
+}
+
+.footer-social a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #a855f7;
+    transition: width 0.3s ease;
 }
 
 .footer-social a:hover {
     color: #a855f7;
 }
 
+.footer-social a:hover::after {
+    width: 100%;
+}
+
 .copyright {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.4);
     font-size: 0.8rem;
     text-align: right;
 }
 
-/* ===== АДАПТИВ ===== */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #c084fc, #f472b6);
+    box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #a855f7 #0a0a0a;
+}
+
+@keyframes cardGlow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0);
+    }
+    50% {
+        box-shadow: 0 0 20px 5px rgba(168, 85, 247, 0.2);
+    }
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 1rem 1.5rem;
     }
     
+    .header.scrolled {
+        padding: 0.8rem 1.5rem;
+    }
+    
     .logo-text {
         font-size: 1.3rem;
+    }
+    
+    .logo-dot {
+        font-size: 1.1rem;
     }
     
     .nav {
@@ -507,14 +695,20 @@ body {
         font-size: 1rem;
     }
     
+    .hero-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 1rem;
+    }
+    
     .hero-links {
         flex-direction: column;
         align-items: center;
     }
     
     .hero-link {
-        width: 200px;
+        width: 220px;
         justify-content: center;
+        padding: 12px 24px;
     }
     
     .section-title {
@@ -534,12 +728,28 @@ body {
         gap: 1.5rem;
     }
     
+    .project-card {
+        padding: 1.2rem;
+    }
+    
+    .project-image {
+        height: 200px;
+    }
+    
+    .project-emoji {
+        font-size: 3.5rem;
+    }
+    
     .footer {
         padding: 40px 1.5rem 20px;
     }
     
     .footer-content {
         flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-left {
         text-align: center;
     }
     
@@ -554,110 +764,188 @@ body {
     body {
         cursor: auto;
     }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .hero-title {
-        font-size: 4rem;
-    }
     
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Убираем стандартный курсор на всех элементах */
-a, button, .project-card, .nav-link, .hero-link {
-    cursor: none;
-}
-
-@media (max-width: 768px) {
     a, button, .project-card, .nav-link, .hero-link {
         cursor: pointer;
     }
 }
-        /* Дополнительные стили для кастомного ползунка и правой навигации */
-        
-        /* --- КАСТОМНЫЙ СКРОЛЛБАР --- */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
 
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-            border-radius: 10px;
-        }
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero-title {
+        font-size: 5rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #a855f7, #ec4899);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
+.glass-effect {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #c084fc, #f472b6);
-            box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
-        }
+.hover-glow {
+    transition: all 0.3s ease;
+}
 
-        /* Для Firefox */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #a855f7 #0a0a0a;
-        }
+.hover-glow:hover {
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    transform: scale(1.02);
+}
 
-        /* --- КОРРЕКТИРОВКА НАВИГАЦИИ В ПРАВЫЙ ВЕРХНИЙ УГОЛ --- */
-        .header {
-            padding: 1.8rem 3rem;
-            justify-content: space-between;
-        }
+@keyframes cardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .nav {
-            display: flex;
-            gap: 2.5rem;
-            margin-left: auto; /* Прижимаем навигацию к правому краю */
-            margin-right: 0;
-        }
+.project-card {
+    animation: cardReveal 0.6s ease forwards;
+}
 
-        /* Адаптив для мобильных устройств */
-        @media (max-width: 768px) {
-            .header {
-                padding: 1rem 1.5rem;
-            }
-            
-            .nav {
-                gap: 1.5rem;
-                margin-left: auto;
-            }
-            
-            .nav-link {
-                font-size: 0.85rem;
-            }
-            
-            /* На мобильных устройствах ползунок остается, но можно оставить кастомным */
-            ::-webkit-scrollbar {
-                width: 4px;
-            }
-        }
+.project-card:nth-child(1) { animation-delay: 0.1s; }
+.project-card:nth-child(2) { animation-delay: 0.2s; }
+.project-card:nth-child(3) { animation-delay: 0.3s; }
 
-        /* Небольшое улучшение для плавности скролла */
-        html {
-            scroll-behavior: smooth;
-        }
+.project-emoji-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, rgba(168, 85, 247, 0.2), transparent);
+    border-radius: 20px;
+}
 
-        /* Убираем стандартный скроллбар в некоторых браузерах для чистоты, но оставляем кастомный */
-        body {
-            overflow-y: overlay; /* Для поддержки overlay в WebKit, но для надежности используем auto */
-        }
-        
-        /* Для поддержки в WebKit, чтобы скроллбар был поверх контента */
-        @supports (overflow-y: overlay) {
-            body {
-                overflow-y: overlay;
-            }
-        }
+.project-emoji {
+    font-size: 5rem;
+    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.5));
+    animation: float 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
 
-        /* Дополнительно стилизуем полосу прокрутки для большей эстетики */
-        ::-webkit-scrollbar-corner {
-            background: #0a0a0a;
-        }
+.project-card:hover .project-emoji {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.8));
+}
+
+.project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-overlay-text {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 8px 20px;
+    background: rgba(168, 85, 247, 0.9);
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-card:hover .project-overlay-text {
+    transform: translateY(0);
+}
+
+.project-desc {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    transition: color 0.3s ease;
+}
+
+.project-card:hover .project-desc {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.project-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-title {
+    background: linear-gradient(135deg, #fff, #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.project-number {
+    font-size: 0.8rem;
+    color: #a855f7;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(168, 85, 247, 0.1);
+    border-radius: 20px;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-number {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+    transform: translateX(5px);
+}
+
+.project-tags span {
+    font-size: 0.7rem;
+    padding: 5px 14px;
+    background: rgba(168, 85, 247, 0.12);
+    border-radius: 50px;
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-tags span {
+    background: rgba(168, 85, 247, 0.25);
+    border-color: rgba(168, 85, 247, 0.5);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .project-emoji {
+        font-size: 3.5rem;
+    }
+    
+    .project-title {
+        font-size: 1.3rem;
+    }
+    
+    .project-desc {
+        font-size: 0.85rem;
+    }
+}

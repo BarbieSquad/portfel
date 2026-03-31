@@ -19,11 +19,9 @@ function init() {
     renderer.domElement.style.left = '0';
     renderer.domElement.style.zIndex = '0';
 
-    // ===== ОСВЕЩЕНИЕ =====
     const ambientLight = new THREE.AmbientLight(0x222222);
     scene.add(ambientLight);
 
-    // ===== ГЛАВНАЯ ЧАСТИЦА - ГАЛАКТИКА =====
     const particleCount = 4000;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
@@ -58,7 +56,6 @@ function init() {
     particles = new THREE.Points(geometry, particleMaterial);
     scene.add(particles);
 
-    // ===== ЗВЁЗДЫ НА ФОНЕ =====
     const starCount = 2000;
     const starGeometry = new THREE.BufferGeometry();
     const starPositions = new Float32Array(starCount * 3);
@@ -74,7 +71,6 @@ function init() {
     stars = new THREE.Points(starGeometry, starMaterial);
     scene.add(stars);
 
-    // ===== ПАРЯЩИЕ СФЕРЫ =====
     const orbGroup = new THREE.Group();
     const orbCount = 30;
     
@@ -95,7 +91,6 @@ function init() {
     }
     scene.add(orbGroup);
 
-    // ===== ВРАЩАЮЩИЕСЯ КОЛЬЦА =====
     const ringGroup = new THREE.Group();
     const ringGeo = new THREE.TorusGeometry(5.5, 0.05, 128, 200);
     const ringMat = new THREE.MeshStandardMaterial({ color: 0xa855f7, emissive: 0x6a0dad, emissiveIntensity: 0.3 });
@@ -109,7 +104,6 @@ function init() {
     
     scene.add(ringGroup);
 
-    // ===== СВЕТЯЩИЕСЯ ТОЧКИ =====
     const glowCount = 100;
     const glowGeometry = new THREE.BufferGeometry();
     const glowPositions = new Float32Array(glowCount * 3);
@@ -125,13 +119,11 @@ function init() {
     const glowPoints = new THREE.Points(glowGeometry, glowMaterial);
     scene.add(glowPoints);
 
-    // ===== СЛЕЖЕНИЕ ЗА МЫШКОЙ =====
     document.addEventListener('mousemove', (event) => {
         mouseX = (event.clientX / window.innerWidth) * 2 - 1;
         mouseY = (event.clientY / window.innerHeight) * 2 - 1;
     });
 
-    // ===== КАСТОМНЫЙ КУРСОР (только для ПК) =====
     if (window.innerWidth > 768) {
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
@@ -155,7 +147,6 @@ function init() {
         }
     }
 
-    // ===== НАВИГАЦИЯ ПО КНОПКАМ =====
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
@@ -180,7 +171,6 @@ function init() {
         });
     });
 
-    // ===== АНИМАЦИЯ =====
     let time = 0;
     
     function animate() {
@@ -219,7 +209,6 @@ function init() {
     animate();
 }
 
-// Анимация при скролле
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -238,7 +227,6 @@ document.querySelectorAll('.project-card').forEach(card => {
     card.classList.add('visible'); // сразу показываем
 });
 
-// Эффект при скролле для шапки
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.header');
     if (window.scrollY > 50) {
@@ -248,7 +236,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Запуск
 window.addEventListener('load', () => {
     init();
     

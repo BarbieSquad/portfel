@@ -4,10 +4,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 let scene, camera, renderer, controls, model;
 
-// Определяем проект по URL
 const projectId = window.location.pathname.match(/project(\d)\.html/)?.[1] || '1';
 
-// Настройки для каждого проекта
 const projectConfig = {
     1: {
         title: 'Чудаки',
@@ -37,13 +35,11 @@ const projectConfig = {
 
 const config = projectConfig[projectId] || projectConfig[1];
 
-// Обновляем информацию на странице
 document.getElementById('projectTitle').textContent = config.title;
 document.getElementById('projectDesc').textContent = config.desc;
 const techContainer = document.getElementById('projectTech');
 techContainer.innerHTML = config.tech.map(t => `<span>${t}</span>`).join('');
 
-// Инициализация 3D сцены
 function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(config.bgColor);
@@ -59,7 +55,6 @@ function init() {
     renderer.shadowMap.enabled = true;
     document.body.appendChild(renderer.domElement);
 
-    // Орбит контрол - можно крутить модель
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
@@ -70,13 +65,10 @@ function init() {
     controls.rotateSpeed = 1.0;
     controls.target.set(0, 0.5, 0);
 
-    // Освещение
     setupLights();
     
-    // Загружаем модель или создаём демо-объект
     loadModel();
     
-    // Добавляем частицы для атмосферы
     createParticles();
     
     animate();
@@ -143,20 +135,19 @@ function loadModel() {
             model.position.set(0, -0.5, 0);
             model.scale.set(1, 1, 1);
             scene.add(model);
-            console.log('✅ Модель загружена');
+            console.log('Модель загружена');
         },
         (xhr) => {
-            console.log(`📦 Загрузка: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
+            console.log(`Загрузка: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
         },
         (error) => {
-            console.error('❌ Ошибка загрузки модели:', error);
+            console.error('Ошибка загрузки модели:', error);
             createFallbackModel();
         }
     );
 }
 
 function createFallbackModel() {
-    // Создаём красивый объект если модель не найдена
     const geometry = new THREE.TorusKnotGeometry(0.8, 0.2, 128, 32, 3, 4);
     const material = new THREE.MeshStandardMaterial({
         color: 0x8b5cf6,
