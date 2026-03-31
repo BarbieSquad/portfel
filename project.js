@@ -10,9 +10,9 @@ const projectId = window.location.pathname.match(/project(\d)\.html/)?.[1] || '1
 // Настройки для каждого проекта
 const projectConfig = {
     1: {
-        title: 'Космическая колонизация',
-        desc: '3D сцена с анимацией планет и частиц',
-        tech: ['Three.js', 'Blender'],
+        title: 'Чудаки',
+        desc: 'Персонажи',
+        tech: ['Blender'],
         modelPath: './models/123.glb', // замените на вашу модель
         bgColor: 0x0a0a2a,
         cameraPos: { x: 3, y: 2, z: 5 }
@@ -131,7 +131,7 @@ function createParticles() {
 function loadModel() {
     const loader = new GLTFLoader();
     
-    loader.load(config.modelPath, 
+    loader.load('./models/123.glb', 
         (gltf) => {
             model = gltf.scene;
             model.traverse((node) => {
