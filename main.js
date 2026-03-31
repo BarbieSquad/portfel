@@ -25,7 +25,7 @@ function init3D() {
     
     renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(1);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     document.body.appendChild(renderer.domElement);
     renderer.domElement.style.position = 'fixed';
     renderer.domElement.style.top = '0';
@@ -33,7 +33,7 @@ function init3D() {
     renderer.domElement.style.zIndex = '0';
     renderer.domElement.style.pointerEvents = 'none';
     
-    const starCount = 400;
+    const starCount = 200;
     const starGeometry = new THREE.BufferGeometry();
     const starPositions = new Float32Array(starCount * 3);
     
@@ -48,7 +48,7 @@ function init3D() {
     const stars = new THREE.Points(starGeometry, starMaterial);
     scene.add(stars);
     
-    const particleCount = 800;
+    const particleCount = 300;
     const particleGeometry = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
     
@@ -68,17 +68,9 @@ function init3D() {
     function animate() {
         animationId = requestAnimationFrame(animate);
         
-        if (particles) {
-            particles.rotation.y += 0.002;
-        }
-        
-        if (stars) {
-            stars.rotation.y += 0.0005;
-        }
-        
-        if (renderer && scene && camera) {
-            renderer.render(scene, camera);
-        }
+        if (particles) particles.rotation.y += 0.002;
+        if (stars) stars.rotation.y += 0.0005;
+        if (renderer && scene && camera) renderer.render(scene, camera);
     }
     
     animate();
@@ -89,59 +81,83 @@ function setupCursor() {
     
     const cursor = document.querySelector('.cursor');
     const cursorFollower = document.querySelector('.cursor-follower');
-    
     if (!cursor || !cursorFollower) return;
     
+    // Прямое следование без сглаживания для быстрого курсора
     document.addEventListener('mousemove', (e) => {
         cursor.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
         cursorFollower.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
     });
     
-    const interactiveElements = document.querySelectorAll('a, button, .project-card, .hero-link, .nav-link');
+    const interactiveElements = document.querySelectorAll('a, button, .project-card, .hero-link, .nav-link, .back-btn, .contact-card, .modal-close, .footer-link');
+    
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
+            cursor.style.transform = `scale(1.8)`;
+            cursor.style.backgroundColor = '#ec4899';
             cursorFollower.style.transform = `scale(1.5)`;
             cursorFollower.style.borderColor = '#ec4899';
+            cursorFollower.style.backgroundColor = 'rgba(236, 72, 153, 0.15)';
         });
+        
         el.addEventListener('mouseleave', () => {
+            cursor.style.transform = `scale(1)`;
+            cursor.style.backgroundColor = '#a855f7';
             cursorFollower.style.transform = `scale(1)`;
             cursorFollower.style.borderColor = 'rgba(168, 85, 247, 0.5)';
+            cursorFollower.style.backgroundColor = 'rgba(168, 85, 247, 0.05)';
         });
+    });
+}
+
+function setupModal() {
+    const modal = document.getElementById('contactModal');
+    const openButtons = document.querySelectorAll('#openContactModal, .nav-link[data-link="contacts"]');
+    const closeButton = modal?.querySelector('.modal-close');
+    
+    if (!modal) return;
+    
+    function openModal(e) {
+        if (e) e.preventDefault();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    openButtons.forEach(btn => btn.addEventListener('click', openModal));
+    if (closeButton) closeButton.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
 }
 
 function setupNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    const projectsBtn = document.querySelector('.hero-link.projects-btn, .nav-link[data-link="projects"]');
+    if (projectsBtn) {
+        projectsBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('data-link');
-            
-            if (targetId === 'hero') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if (targetId === 'projects') {
-                const projectsSection = document.getElementById('projects');
-                if (projectsSection) {
-                    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
+            document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
         });
-    });
+    }
 }
 
 function setupHeaderScroll() {
     let ticking = false;
-    
     window.addEventListener('scroll', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
                 const header = document.querySelector('.header');
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
+                if (window.scrollY > 50) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
                 ticking = false;
             });
             ticking = true;
@@ -150,10 +166,8 @@ function setupHeaderScroll() {
 }
 
 function setupCardsReveal() {
-    const cards = document.querySelectorAll('.project-card');
-    
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
+        entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
@@ -161,9 +175,7 @@ function setupCardsReveal() {
         });
     }, { threshold: 0.1 });
     
-    cards.forEach(card => {
-        observer.observe(card);
-    });
+    document.querySelectorAll('.project-card').forEach(card => observer.observe(card));
 }
 
 function handleResize() {
@@ -177,6 +189,7 @@ function handleResize() {
 window.addEventListener('load', () => {
     init3D();
     setupCursor();
+    setupModal();
     setupNavigation();
     setupHeaderScroll();
     setupCardsReveal();
@@ -184,10 +197,6 @@ window.addEventListener('load', () => {
 });
 
 window.addEventListener('beforeunload', () => {
-    if (animationId) {
-        cancelAnimationFrame(animationId);
-    }
-    if (renderer) {
-        renderer.dispose();
-    }
+    if (animationId) cancelAnimationFrame(animationId);
+    if (renderer) renderer.dispose();
 });
